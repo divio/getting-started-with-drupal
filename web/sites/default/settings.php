@@ -92,9 +92,6 @@ if (getenv('DATABASE_URL')) {
   $url = parse_url(getenv('DATABASE_URL'));
   $pass = $url['pass'] ?? '';
 
-  # remove this after configuration
-  error_log('DATABASE PASSWORD: ' . $pass);
-
   $databases['default']['default'] = array (
     'database' => ltrim($url['path'],'/'),
     'username' => $url['user'],
