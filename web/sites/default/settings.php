@@ -90,14 +90,15 @@
  */
 if (getenv('DATABASE_URL')) {
   $url = parse_url(getenv('DATABASE_URL'));
+  $pass = $url['pass'] ?? '';
 
   # remove this after configuration
-  error_log('DATABASE PASSWORD: ' . $url['pass']);
+  error_log('DATABASE PASSWORD: ' . $pass);
 
   $databases['default']['default'] = array (
     'database' => ltrim($url['path'],'/'),
     'username' => $url['user'],
-    'password' => $url['pass'],
+    'password' => $pass,
     'prefix' => '',
     'host' => $url['host'],
     'port' => $url['port'],
@@ -274,7 +275,7 @@ if (getenv('DATABASE_URL')) {
  * directory in the public files path. The setting below allows you to set
  * its location.
  */
-# $settings['config_sync_directory'] = '/directory/outside/webroot';
+$settings['config_sync_directory'] = '/opt/drupal/web/settings';
 
 /**
  * Settings:
@@ -304,7 +305,7 @@ if (getenv('DATABASE_URL')) {
  *   $settings['hash_salt'] = file_get_contents('/home/example/salt.txt');
  * @endcode
  */
-$settings['hash_salt'] = '';
+$settings['hash_salt'] = 'change_me';
 
 /**
  * Deployment identifier.
@@ -790,7 +791,12 @@ $settings['container_yamls'][] = $app_root . '/' . $site_path . '/services.yml';
  *
  * @see https://www.drupal.org/docs/installing-drupal/trusted-host-settings
  */
-# $settings['trusted_host_patterns'] = [];
+$settings['trusted_host_patterns'] = [
+  '^127\.0.\0.\1$',
+  '^localhost$',
+  '^aldryn\.io$',
+  '^.+\.aldryn\.io$',
+];
 
 /**
  * The default list of directories that will be ignored by Drupal's file API.
@@ -899,3 +905,18 @@ $settings['migrate_node_migrate_type_classic'] = FALSE;
 # if (file_exists($app_root . '/' . $site_path . '/settings.local.php')) {
 #   include $app_root . '/' . $site_path . '/settings.local.php';
 # }
+
+# see https://git.drupalcode.org/project/s3fs/blob/8.x-3.x/README.txt
+if (isset($_ENV["DEFAULT_STORAGE_ACCESS_KEY_ID"])) {
+  $settings['s3fs.access_key'] = $_ENV["DEFAULT_STORAGE_ACCESS_KEY_ID"];
+  $settings['s3fs.secret_key'] = $_ENV["DEFAULT_STORAGE_SECRET_ACCESS_KEY"];
+
+  $config['s3fs.settings']['bucket'] = $_ENV["DEFAULT_STORAGE_BUCKET"];
+  $config['s3fs.settings']['region'] = $_ENV["DEFAULT_STORAGE_REGION"];
+
+  $config['s3fs.settings']['public_folder'] = "/";
+  $config['s3fs.settings']['disable_version_sync'] = TRUE;
+  $config['s3fs.settings']['use_customhost'] = TRUE;
+  $config['s3fs.settings']['hostname'] = 'https://' . $_ENV["DEFAULT_STORAGE_CUSTOM_DOMAIN"];
+  $config['s3fs.settings']['use_https'] = TRUE;
+}
