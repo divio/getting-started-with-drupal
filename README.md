@@ -8,6 +8,8 @@ Welcome to our QuickStart template – your portal to swift application developm
 
 Create a [Divio Account](https://control.divio.com/) and choose **Drupal** from the template selection when creating a new application. Alternatively, click the `Deploy to Divio` button above and follow the app creation wizard. Finally, deploy your app to the `test` or `live` environment.
 
+If you get a "Gateway timeout error" after the "Configure site" step, navigate back to the root of the application and everything should be working.
+
 For in-depth details about Divio Cloud, refer to the [Divio documentation](https://docs.divio.com/introduction/).
 
 ## Local Setup
