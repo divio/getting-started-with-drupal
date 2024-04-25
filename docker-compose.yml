@@ -13,6 +13,7 @@ services:
       - ./vendor:/opt/drupal/web/vendor
       - ./composer.json:/opt/drupal/web/composer.json
       - ./composer.lock:/opt/drupal/web/composer.lock
+      - ./data:/data:rw
 
   database_default:
     image: mysql:8.0
