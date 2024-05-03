@@ -1,6 +1,6 @@
 # Getting Started with Drupal
 
-[![Deploy to Divio](https://img.shields.io/badge/DEPLOY-TO%20DIVIO-DFFF67?logo=docker&logoColor=white&labelColor=333333)](https://control.divio.com/app/new/?template_url=https://github.com/divio/getting-started-with-drupal/archive/refs/heads/main.zip)
+[![Deploy to Divio](https://docs.divio.com/deploy-to-divio.svg)](https://control.divio.com/app/new/?template_url=https://github.com/divio/getting-started-with-drupal/archive/refs/heads/main.zip)
 
 Welcome to our QuickStart template – your portal to swift application development and seamless local testing. Whether you're delving into Drupal for the first time or optimizing your workflow, our template, based on Drupal's [recommended-project](https://github.com/drupal/recommended-project), has got you covered.
 
